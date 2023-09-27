@@ -6,10 +6,11 @@ function randomIntFromInterval(min, max) {
 
 export function resetArray() {
   const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
   const NUMBER_OF_ARRAY_BARS = Math.floor(windowWidth / 6.1);
   const array = [];
   for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-    array.push(randomIntFromInterval(5, 730));
+    array.push(randomIntFromInterval(5, windowHeight - 150));
   }
   return array;
 }
