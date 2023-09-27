@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import { resetArray } from "./utils";
@@ -38,6 +38,12 @@ const App = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // if window size gets changed, reset the array
+    window.addEventListener("resize", handleResetArray);
+    return () => window.removeEventListener("resize", handleResetArray);
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">
