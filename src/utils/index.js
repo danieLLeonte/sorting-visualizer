@@ -1,0 +1,16 @@
+// From https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+function randomIntFromInterval(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const windowWidth = window.innerWidth;
+const NUMBER_OF_ARRAY_BARS = Math.floor(windowWidth / 6.1);
+
+export function resetArray() {
+  const array = [];
+  for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
+    array.push(randomIntFromInterval(5, 730));
+  }
+  return array;
+}
