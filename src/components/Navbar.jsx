@@ -14,7 +14,7 @@ const Navbar = ({ handleResetArray, mergeSort }) => {
     <>
       <nav className="flex justify-between items-center bg-gray-800 py-4 px-6">
         <a href="/" className="text-white font-bold">
-          <h1 className="text-2xl">Sorting Visualizer</h1>
+          <h1 className="text-2xl hidden sm:block">Sorting Visualizer</h1>
         </a>
         <ActionBar handleResetArray={handleResetArray} mergeSort={mergeSort} />
       </nav>
