@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import { resetArray } from "./utils";
@@ -13,6 +13,7 @@ let isSorted = false;
 
 const App = () => {
   const [array, setArray] = useState(resetArray);
+  const containerRef = useRef(null);
 
   const handleResetArray = () => {
     if (isSorting) return;
@@ -27,7 +28,7 @@ const App = () => {
 
     const animations = getMergeSortAnimations(array);
     for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName("array-bar");
+      const arrayBars = containerRef.current.children;
       const isColorChange = i % 3 !== 2;
       if (isColorChange) {
         const [barOneIdx, barTwoIdx] = animations[i];
@@ -62,7 +63,7 @@ const App = () => {
   return (
     <div className="flex flex-col gap-6">
       <Navbar handleResetArray={handleResetArray} mergeSort={mergeSort} />
-      <main className="mt-2 flex justify-center overflow-x-auto mx-auto">
+      <main className="mt-2 flex justify-center overflow-x-auto mx-auto" ref={containerRef}>
         {array.map((value, idx) => (
           <div
             className="w-[2px] mx-[2px] inline-block array-bar"
