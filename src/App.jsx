@@ -44,6 +44,11 @@ const App = () => {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
+          setArray((prevArray) => {
+            const newArray = [...prevArray];
+            newArray[barOneIdx] = newHeight;
+            return newArray;
+          });
         }, (i * ANIMATION_SPEED_MS) / (array.length / 2));
       }
     }
@@ -63,7 +68,10 @@ const App = () => {
   return (
     <div className="flex flex-col gap-6">
       <Navbar handleResetArray={handleResetArray} mergeSort={mergeSort} />
-      <main className="mt-2 flex justify-center overflow-x-auto mx-auto" ref={containerRef}>
+      <main
+        className="mt-2 flex justify-center overflow-x-auto mx-auto"
+        ref={containerRef}
+      >
         {array.map((value, idx) => (
           <div
             className="w-[2px] mx-[2px] inline-block array-bar"
@@ -72,7 +80,7 @@ const App = () => {
               backgroundColor: PRIMARY_COLOR,
               height: `${value}px`,
             }}
-          ></div>
+          />
         ))}
       </main>
     </div>
