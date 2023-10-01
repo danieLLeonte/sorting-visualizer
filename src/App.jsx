@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import { resetArray } from "./utils";
 import { getMergeSortAnimations } from "./algorithms/mergeSort";
 
-const ANIMATION_SPEED_MS = 150;
+const ANIMATION_SPEED_MS = 0.5;
 const PRIMARY_COLOR = "turquoise";
 const SECONDARY_COLOR = "red";
 
@@ -22,45 +22,50 @@ const App = () => {
   };
 
   const mergeSort = () => {
-    // if already sorting or already sorted, return
+    // Check if it's already sorting or sorted
     if (isSorting || isSorted) return;
+  
     isSorting = true;
-
     const animations = getMergeSortAnimations(array);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = containerRef.current.children;
-      const isColorChange = i % 3 !== 2;
+    const arrayBars = containerRef.current.children;
+  
+    const executeAnimation = (index) => {
+      if (index >= animations.length) {
+        isSorting = false;
+        isSorted = true;
+        return;
+      }
+  
+      const isColorChange = index % 3 !== 2;
       if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
+        const [barOneIdx, barTwoIdx] = animations[index];
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, (i * ANIMATION_SPEED_MS) / (array.length / 2));
+        const color = index % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+  
+        barOneStyle.backgroundColor = color;
+        barTwoStyle.backgroundColor = color;
       } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
-          setArray((prevArray) => {
-            const newArray = [...prevArray];
-            newArray[barOneIdx] = newHeight;
-            return newArray;
-          });
-        }, (i * ANIMATION_SPEED_MS) / (array.length / 2));
+        const [barOneIdx, newHeight] = animations[index];
+        const barOneStyle = arrayBars[barOneIdx].style;
+  
+        barOneStyle.height = `${newHeight}px`;
+        setArray((prevArray) => {
+          const newArray = [...prevArray];
+          newArray[barOneIdx] = newHeight;
+          return newArray;
+        });
       }
-    }
-    // set isSorting to false after the animations are done
-    setTimeout(() => {
-      isSorting = false;
-      isSorted = true;
-    }, (animations.length * ANIMATION_SPEED_MS) / (array.length / 2));
+  
+      setTimeout(() => executeAnimation(index + 1), ANIMATION_SPEED_MS / array.length);
+    };
+  
+    // Start the animation sequence
+    executeAnimation(0);
   };
 
   useEffect(() => {
-    // if window size gets changed, reset the array
+    // If window size gets changed, reset the array
     window.addEventListener("resize", handleResetArray);
     return () => window.removeEventListener("resize", handleResetArray);
   }, []);
