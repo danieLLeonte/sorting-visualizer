@@ -1,8 +1,3 @@
-# React + Vite
+# Sorting Visualizer - Merge Sort
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![image](https://github.com/danieLLeonte/sorting-visualizer/assets/105210568/fb9296fc-cf53-4b1a-ad14-7183c31f691b)
