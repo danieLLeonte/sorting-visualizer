@@ -64,6 +64,8 @@ const App = () => {
         if (animationIndex >= animations.length) {
           isSorting = false;
           isSorted = true;
+          animationIndex = 0;
+          lastTimestamp = 0;
           return; // Stop the animation
         }
       }
